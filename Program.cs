@@ -21,12 +21,12 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("AdminOnly", policy =>
         policy.RequireAssertion(context =>
             context.User.Identity?.IsAuthenticated == true
-            && context.User.FindFirst(ClaimTypes.Email)?.Value == "admin@example.com"));
+            && context.User.FindFirst(ClaimTypes.Email)?.Value == "dmitryshibaev00@gmail.com"));
 });
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false; // Убрали true из первого вызова
+    options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireDigit = false;
 })
@@ -43,10 +43,9 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    await SeedData.Initialize(services, "dmitryshibaev00@outlook.com"); // Ваш email
+    await SeedData.Initialize(services, "dmitryshibaev00@gmail.com"); // Ваш email
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
